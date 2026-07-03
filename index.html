@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beyond English — Đừng hỏi con học được gì, hãy hỏi con đã trở thành ai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&family=Pangolin&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Beyond English brand palette (from official brand guideline) */
+    --purple:#7B6BAE;        /* primary */
+    --purple-deep:#3E2967;   /* dark purple / text */
+    --purple-light:#D4CAFF;  /* light purple */
+    --yellow:#EEBB19;
+    --coral:#EF805E;
+    --pink:#F0959C;
+    --mint:#ABD6BB;
+    --green:#8EC34A;
+
+    --bg:#F5F3FC;
+    --paper:#FFFFFF;
+    --ink:#3E2967;
+    --ink-soft:#5B4E7E;
+    --line:#E4DEF6;
+
+    --display:'Poppins', system-ui, sans-serif;
+    --body:'Poppins', system-ui, sans-serif;
+    --hand:'Pangolin', cursive;
+
+    --max:1140px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg); color:var(--ink); font-family:var(--body); line-height:1.6; overflow-x:hidden;}
+  img{display:block; max-width:100%;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 28px;}
+  h1,h2,h3{font-family:var(--display); font-weight:700; line-height:1.15; letter-spacing:-0.01em; color:var(--purple-deep);}
+  .eyebrow{
+    font-weight:700; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--coral);
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:''; width:22px; height:2px; background:var(--coral); display:inline-block;}
+
+  @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important;} }
+
+  /* ---------- Top bar ---------- */
+  .topbar{background:var(--purple-deep); color:#E7DFFB; font-size:13px;}
+  .topbar .wrap{display:flex; justify-content:space-between; align-items:center; padding:8px 28px; gap:16px; flex-wrap:wrap;}
+  .topbar a{color:#E7DFFB;}
+  .topbar a:hover{color:#fff;}
+  .topbar .sep{opacity:.4; margin:0 8px;}
+
+  /* ---------- Header ---------- */
+  header{position:sticky; top:0; z-index:50; background:rgba(245,243,252,0.9); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0;}
+  .logo-img{height:58px; width:auto;}
+  .nav-links{display:flex; align-items:center; gap:26px; font-size:15px; font-weight:500; color:var(--ink-soft);}
+  .nav-links a{position:relative; padding:4px 0;}
+  .nav-links a::after{content:''; position:absolute; left:0; bottom:0; width:0; height:2px; background:var(--coral); transition:width .25s ease;}
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{background:var(--coral); color:#fff !important; padding:10px 20px; border-radius:100px; font-weight:600; font-size:14px; white-space:nowrap; box-shadow:0 2px 0 #D9663F;}
+  .nav-cta:hover{transform:translateY(-1px);}
+  .burger{display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:6px;}
+  .burger span{width:24px; height:2px; background:var(--purple-deep); display:block;}
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative; padding:64px 0 96px; overflow:hidden;}
+  .hero::before{
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(ellipse 900px 500px at 90% -10%, var(--purple-light) 0%, transparent 60%);
+    z-index:-1;
+  }
+  .hero-grid{display:grid; grid-template-columns:1fr .9fr; gap:56px; align-items:center;}
+  .hero h1{font-size:clamp(32px, 4.4vw, 48px); margin:16px 0 20px;}
+  .tagline{font-family:var(--hand); font-size:1.4em; color:var(--coral); display:inline-block; transform:rotate(-1.5deg); font-weight:400;}
+  .hero p.lede{font-size:17px; color:var(--ink-soft); max-width:48ch; margin-bottom:28px;}
+  .hero-ctas{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:28px;}
+  .btn-primary{background:var(--coral); color:#fff; padding:15px 28px; border-radius:100px; font-weight:700; font-size:15px; box-shadow:0 3px 0 #D9663F; display:inline-flex; align-items:center; gap:8px; transition:transform .15s ease;}
+  .btn-primary:hover{transform:translateY(-2px);}
+  .btn-ghost{background:#fff; color:var(--ink); padding:15px 24px; border-radius:100px; font-weight:600; font-size:15px; border:1.5px solid var(--line); transition:border-color .2s ease;}
+  .btn-ghost:hover{border-color:var(--coral);}
+  .trust-row{display:flex; gap:20px; flex-wrap:wrap; font-size:13.5px; color:var(--ink-soft);}
+  .trust-row div{display:flex; align-items:center; gap:8px;}
+  .dot{width:6px; height:6px; border-radius:50%; background:var(--green); display:inline-block; flex:none;}
+
+  .hero-photo-wrap{position:relative;}
+  .hero-photo{
+    border-radius:26px; overflow:hidden; box-shadow:0 24px 50px -20px rgba(62,41,103,.35);
+    aspect-ratio:4/5; 
+  }
+  .hero-photo img{width:100%; height:100%; object-fit:cover;}
+  .hero-note{
+    position:absolute; left:-24px; bottom:28px; background:#fff; border-radius:16px; padding:18px 20px;
+    box-shadow:0 14px 30px -10px rgba(62,41,103,.3); max-width:250px; border:1px solid var(--line);
+  }
+  .hero-note .pin{
+    font-family:var(--hand); font-size:16px; color:var(--purple); margin-bottom:6px; display:block;
+  }
+  .hero-note p{font-size:13.5px; color:var(--ink-soft); line-height:1.5;}
+  .hero-blob{position:absolute; z-index:-1; border-radius:50%; background:var(--yellow); opacity:.5;}
+
+  /* ---------- Belief band ---------- */
+  .belief-band{padding:0 0 72px;}
+  .belief-line{
+    font-family:var(--display); font-weight:600; font-size:clamp(19px,2.4vw,26px);
+    color:var(--purple-deep); text-align:center; max-width:820px; margin:0 auto 10px; line-height:1.4;
+  }
+  .belief-line em{font-style:normal; color:var(--coral);}
+  .belief-sub{text-align:center; font-family:var(--hand); font-size:18px; color:var(--purple);}
+
+  /* ---------- Section shared ---------- */
+  section{padding:88px 0;}
+  .section-head{max-width:640px; margin-bottom:46px;}
+  .section-head h2{font-size:clamp(26px,3.2vw,36px); margin-top:14px;}
+  .section-head p{color:var(--ink-soft); font-size:16px; margin-top:14px;}
+
+  /* ---------- About ---------- */
+  .about{background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .about-grid{display:grid; grid-template-columns:.85fr 1.15fr; gap:56px; align-items:center;}
+  .about-photo{border-radius:22px; overflow:hidden; aspect-ratio:4/5; box-shadow:0 14px 34px -18px rgba(62,41,103,.3);}
+  .about-photo img{width:100%; height:100%; object-fit:cover;}
+  .about-text p{color:var(--ink-soft); font-size:16px; margin-bottom:15px;}
+  .about-text p:first-of-type{font-size:17.5px; color:var(--ink);}
+  .pill-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:20px;}
+  .pill{font-size:12.5px; font-weight:700; color:var(--purple-deep); background:var(--purple-light); padding:6px 13px; border-radius:100px;}
+
+  /* ---------- Story ---------- */
+  .story-grid{display:grid; grid-template-columns:1.15fr .85fr; gap:56px; align-items:center;}
+  .story-photo{border-radius:22px; overflow:hidden; aspect-ratio:1/1; box-shadow:0 14px 34px -18px rgba(62,41,103,.3);}
+  .story-photo img{width:100%; height:100%; object-fit:cover;}
+
+  /* ---------- Programs ---------- */
+  .programs{background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .programs-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+  .program-card{background:var(--bg); border:1px solid var(--line); border-radius:18px; overflow:hidden; transition:transform .2s ease, box-shadow .2s ease;}
+  .program-card:hover{transform:translateY(-5px); box-shadow:0 16px 34px -18px rgba(62,41,103,.35);}
+  .program-photo{aspect-ratio:4/3; overflow:hidden;}
+  .program-photo img{width:100%; height:100%; object-fit:cover;}
+  .program-body{padding:20px 20px 24px;}
+  .program-age{display:inline-block; font-size:12px; font-weight:700; color:var(--purple-deep); background:var(--purple-light); padding:5px 11px; border-radius:100px; margin-bottom:14px;}
+  .program-card h3{font-size:18px; margin-bottom:8px;}
+  .program-card p{font-size:13.5px; color:var(--ink-soft);}
+  .program-card.special .program-age{background:#FFF1D6; color:#9A6B04;}
+  .program-role{font-size:12px; font-weight:600; color:var(--coral); text-transform:uppercase; letter-spacing:.06em; margin-left:8px;}
+  .program-became{font-size:13.5px; color:var(--purple); font-weight:600; margin-bottom:8px;}
+  .program-hook{font-size:12.5px; color:var(--ink-soft); font-style:italic; margin-top:10px; padding-top:10px; border-top:1px dashed var(--line);}
+
+  /* ---------- Pathway ---------- */
+  .pathway{background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .pathway-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .pathway-card{background:var(--bg); border:1px solid var(--line); border-radius:18px; padding:26px 24px; border-top:4px solid var(--purple);}
+  .pathway-card.yd{border-top-color:var(--coral);}
+  .pathway-card.jd{border-top-color:var(--green);}
+  .pathway-card h3{font-size:19px; margin-bottom:4px;}
+  .pathway-levels{font-size:12.5px; font-weight:700; color:var(--ink-soft); margin-bottom:16px;}
+  .pathway-steps{list-style:none; display:flex; flex-direction:column; gap:0; margin-bottom:16px;}
+  .pathway-steps li{
+    position:relative; padding:0 0 16px 22px; font-size:13.5px; color:var(--ink-soft);
+    border-left:2px solid var(--line);
+  }
+  .pathway-steps li::before{
+    content:''; position:absolute; left:-5px; top:2px; width:8px; height:8px; border-radius:50%; background:var(--purple);
+  }
+  .pathway-card.yd .pathway-steps li::before{background:var(--coral);}
+  .pathway-card.jd .pathway-steps li::before{background:var(--green);}
+  .pathway-steps li:last-child{border-left:2px solid transparent; padding-bottom:0;}
+  .pathway-outcome{font-size:13.5px; color:var(--purple-deep); font-weight:600; background:var(--purple-light); border-radius:10px; padding:10px 12px;}
+  .pathway-card.yd .pathway-outcome{background:#FDE6DD; color:#B44A26;}
+  .pathway-card.jd .pathway-outcome{background:#E7F3DB; color:#4C7A1E;}
+  .pathway-note{margin-top:30px; font-size:13.5px; color:var(--ink-soft); text-align:center; max-width:700px; margin-left:auto; margin-right:auto;}
+  .pathway-note strong{color:var(--purple-deep);}
+
+  /* ---------- Approach / Why ---------- */
+  .why{background:var(--purple-deep); color:#EDE7FA; position:relative;}
+  .why .section-head p{color:#C9BEE8;}
+  .why .eyebrow{color:var(--yellow);}
+  .why .eyebrow::before{background:var(--yellow);}
+  .why-list{display:grid; grid-template-columns:1fr 1fr; gap:28px 50px;}
+  .why-item{display:flex; gap:16px;}
+  .why-item .num{font-family:var(--hand); font-size:30px; color:var(--yellow); flex:none; width:40px;}
+  .why-item h3{font-size:18px; color:#fff; margin-bottom:6px; font-weight:600;}
+  .why-item p{font-size:14.5px; color:#C9BEE8;}
+
+  /* ---------- Activities gallery ---------- */
+  .activities{background:var(--bg);}
+  .activities-head{display:flex; align-items:flex-end; justify-content:space-between; gap:20px; flex-wrap:wrap; margin-bottom:28px;}
+  .activities-head h3{font-size:22px;}
+  .activities-head p{color:var(--ink-soft); font-size:14.5px; margin-top:6px; max-width:44ch;}
+  .gallery-strip{display:grid; grid-template-columns:repeat(6,1fr); gap:12px;}
+  .gallery-strip a{border-radius:14px; overflow:hidden; aspect-ratio:1/1; display:block;}
+  .gallery-strip img{width:100%; height:100%; object-fit:cover; transition:transform .3s ease;}
+  .gallery-strip a:hover img{transform:scale(1.06);}
+
+  /* ---------- Testimonials ---------- */
+  .testi-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .testi-card{background:var(--paper); border:1px solid var(--line); border-radius:18px; padding:28px; position:relative;}
+  .testi-card::before{content:'"'; font-family:var(--display); font-weight:800; font-size:60px; color:var(--purple-light); position:absolute; top:8px; right:20px; line-height:1;}
+  .testi-card p{font-size:15px; color:var(--ink-soft); margin-bottom:20px; position:relative; z-index:1;}
+  .testi-who{display:flex; align-items:center; gap:12px;}
+  .avatar{width:38px; height:38px; border-radius:50%; background:var(--purple-light); display:flex; align-items:center; justify-content:center; font-weight:700; color:var(--purple-deep); font-family:var(--display); font-size:15px;}
+  .testi-who div strong{display:block; font-size:14.5px;}
+  .testi-who div span{font-size:12.5px; color:var(--ink-soft);}
+
+  /* ---------- Contact ---------- */
+  .contact{background:linear-gradient(160deg, var(--purple), var(--purple-deep)); color:#fff; border-radius:28px; margin:0 28px; padding:60px 48px; position:relative; overflow:hidden;}
+  .contact::after{content:''; position:absolute; right:-60px; top:-60px; width:260px; height:260px; border-radius:50%; background:radial-gradient(circle, rgba(238,187,25,.35), transparent 70%);}
+  .contact-inner{max-width:var(--max); margin:0 auto; position:relative; z-index:1;}
+  .contact-grid{display:grid; grid-template-columns:1.2fr 1fr; gap:48px; align-items:start;}
+  .contact h2{color:#fff; font-size:clamp(26px,3.2vw,36px); max-width:16ch; margin-bottom:14px;}
+  .contact p.lede{color:#E4DDF7; max-width:50ch; margin-bottom:26px; font-size:16px;}
+  .contact-actions{display:flex; gap:14px; flex-wrap:wrap; align-items:center;}
+  .info-list{display:flex; flex-direction:column; gap:16px;}
+  .info-item{display:flex; gap:12px; font-size:14.5px; color:#F1ECFB;}
+  .info-item .ico{flex:none; font-size:17px;}
+  .info-item a{text-decoration:underline; text-underline-offset:3px; text-decoration-color:rgba(255,255,255,.35);}
+  .info-item a:hover{text-decoration-color:#fff;}
+
+  footer{padding:36px 0 50px; text-align:center; color:var(--ink-soft); font-size:13.5px;}
+  footer img{height:32px; margin:0 auto 10px;}
+
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.show{opacity:1; transform:none;}
+
+  @media (max-width:920px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-photo-wrap{order:-1;}
+    .hero-note{left:16px;}
+    .about-grid{grid-template-columns:1fr;}
+    .about-photo{max-width:340px;}
+    .story-grid{grid-template-columns:1fr;}
+    .story-photo{max-width:340px;}
+    .programs-grid{grid-template-columns:1fr 1fr;}
+    .pathway-grid{grid-template-columns:1fr;}
+    .why-list{grid-template-columns:1fr;}
+    .gallery-strip{grid-template-columns:repeat(3,1fr);}
+    .testi-grid{grid-template-columns:1fr;}
+    .contact-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:680px){
+    .nav-links{display:none;}
+    .burger{display:flex;}
+    .nav-cta{padding:9px 16px; font-size:13px;}
+    .programs-grid{grid-template-columns:1fr;}
+    section{padding:60px 0;}
+    .contact{margin:0 14px; padding:40px 22px; border-radius:20px;}
+    .wrap{padding:0 18px;}
+    .topbar .wrap{padding:8px 18px; justify-content:center; text-align:center;}
+    .gallery-strip{grid-template-columns:repeat(3,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div>📍 29 Nguyễn Huệ, Phước Hiệp, TP. Bà Rịa, BR-VT</div>
+    <div>☎️ 077 499 3384 <span class="sep">|</span> <a href="mailto:beyondenglish.br@gmail.com">beyondenglish.br@gmail.com</a></div>
+  </div>
+</div>
+
+<header>
+  <div class="wrap nav">
+    <img class="logo-img" src="images/logo_transparent.png" alt="Beyond English">
+    <nav class="nav-links">
+      <a href="#about">Về Beyond</a>
+      <a href="#story">Câu chuyện</a>
+      <a href="#programs">Chương trình</a>
+      <a href="#pathway">Lộ trình</a>
+      <a href="#why">Cách Beyond dạy</a>
+      <a href="#contact">Liên hệ</a>
+    </nav>
+    <a href="https://zalo.me/4365568810959156939" class="nav-cta">Đăng ký học thử miễn phí</a>
+    <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-blob" style="width:280px; height:280px; top:-60px; right:-60px;"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow reveal">Beyond English · TP. Bà Rịa</div>
+      <h1 class="reveal">
+        Đừng hỏi con đã học được gì.<br>
+        <span class="tagline">Hãy hỏi con đã trở thành ai.</span>
+      </h1>
+      <p class="lede reveal">Ở Beyond, chúng mình tin rằng điều con mang về nhà không chỉ là điểm số hay vốn từ, mà là sự tự tin, tò mò và khả năng nói lên chính mình — qua từng buổi học, từng dự án nhỏ, mỗi tuần.</p>
+      <div class="hero-ctas reveal">
+        <a href="https://zalo.me/4365568810959156939" class="btn-primary">💬 Đăng ký buổi học thử miễn phí</a>
+        <a href="#programs" class="btn-ghost">Xem chương trình học</a>
+      </div>
+      <div class="trust-row reveal">
+        <div><span class="dot"></span> Học qua dự án &amp; khám phá thực tế</div>
+        <div><span class="dot"></span> Cộng đồng nhỏ, gần gũi</div>
+        <div><span class="dot"></span> Hoạt động mới mỗi tuần</div>
+      </div>
+    </div>
+
+    <div class="hero-photo-wrap reveal">
+      <div class="hero-photo">
+        <img src="images/photos/reading-corner-teacher.jpg" alt="Giáo viên Beyond English đọc sách cùng học viên nhỏ tuổi">
+      </div>
+      <div class="hero-note">
+        <span class="pin">Beyond tin rằng 🤍</span>
+        <p>Học tiếng Anh không chỉ là ghi nhớ — mà là được tự do đặt câu hỏi, học qua trải nghiệm thật.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="belief-band">
+  <div class="wrap">
+    <p class="belief-line reveal">Beyond là nơi con <em>trở thành</em> — tự tin hơn, tò mò hơn, độc lập hơn, và biết thể hiện chính mình hơn.</p>
+    <p class="belief-sub reveal">Learning English with a creative twist.</p>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div class="about-photo reveal">
+      <img src="images/photos/teacher-toddler.jpg" alt="Giáo viên Beyond English chăm sóc và đồng hành cùng học viên nhỏ tuổi">
+    </div>
+    <div class="about-text">
+      <div class="eyebrow reveal">Về Beyond</div>
+      <h2 class="reveal" style="font-size:30px; margin:14px 0 18px;">Một không gian học tiếng Anh khác, dành cho trẻ em ở Bà Rịa</h2>
+      <p class="reveal">Beyond English được xây dựng để mang đến một môi trường học tiếng Anh đầy cảm hứng và sáng tạo — nơi các con không chỉ học ngôn ngữ, mà còn được khám phá thế giới xung quanh qua những hoạt động thực tế mỗi tuần.</p>
+      <p class="reveal">Mỗi đứa trẻ đều có tiềm năng riêng. Vì vậy Beyond không đi theo một khuôn mẫu chung, mà đồng hành cùng từng con trên hành trình phát triển ngôn ngữ, tư duy và sự tự tin — trong học tập lẫn cuộc sống hằng ngày.</p>
+      <div class="pill-row reveal">
+        <span class="pill">4–15 tuổi</span>
+        <span class="pill">Inquiry-based learning</span>
+        <span class="pill">Project-based learning</span>
+        <span class="pill">Cộng đồng nhỏ, gần gũi</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="story">
+  <div class="wrap story-grid">
+    <div class="about-text">
+      <div class="eyebrow reveal">Câu chuyện của Beyond</div>
+      <h2 class="reveal" style="font-size:30px; margin:14px 0 18px;">Vì sao Beyond ra đời</h2>
+      <p class="reveal">Beyond English ra đời từ mong muốn của những người sáng lập, khi nhận thấy tại TP Bà Rịa, các chương trình tiếng Anh chất lượng và phương pháp giảng dạy hiện đại vẫn còn khá hạn chế. Beyond được xây dựng như một lựa chọn khác — nơi trẻ không chỉ học ngôn ngữ, mà còn được khám phá bản thân và thế giới xung quanh.</p>
+      <p class="reveal">Ngay từ đầu, Beyond chọn đi theo Inquiry-based learning và Project-based learning — trẻ được khuyến khích tự đặt câu hỏi, tự khám phá và giải quyết vấn đề qua những dự án thực tế, thay vì chỉ ngồi nghe giảng. Đó cũng là cách Beyond nuôi dưỡng tư duy phản biện, kỹ năng giao tiếp và làm việc nhóm cho các con.</p>
+      <p class="reveal">Các hoạt động ngoại khóa, dự án nhóm và chương trình đọc sách "Cool Kids Read Books" đều được xây dựng với một mục tiêu: giúp trẻ yêu thích việc học lâu dài. Với Beyond, đây không đơn thuần là một trung tâm tiếng Anh, mà là một cộng đồng nhỏ, nơi mỗi đứa trẻ đều có thể phát triển, tự tin và hạnh phúc.</p>
+    </div>
+    <div class="story-photo reveal">
+      <img src="images/photos/phonics-area-group.jpg" alt="Giáo viên nước ngoài hướng dẫn học viên tại góc Phonics của Beyond English">
+    </div>
+  </div>
+</section>
+
+<section class="programs" id="programs">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Chương trình học</div>
+      <h2>Đồng hành cùng con theo từng giai đoạn</h2>
+      <p>Mỗi độ tuổi có một cách tiếp cận riêng — cùng chung một triết lý: học qua khám phá và trải nghiệm.</p>
+    </div>
+    <div class="programs-grid">
+      <div class="program-card reveal">
+        <div class="program-photo"><img src="images/photos/phonics-foreign-teacher.jpg" alt="Baby Dino - Tiếng Anh Mẫu Giáo tại Beyond English"></div>
+        <div class="program-body">
+          <span class="program-age">4 – 6 tuổi</span><span class="program-role">Nhà thám hiểm</span>
+          <h3>Baby Dino</h3>
+          <p class="program-became">Con đã trở thành... một nhà thám hiểm nhỏ đầy tò mò.</p>
+          <p>Làm quen tiếng Anh tự nhiên qua trò chơi, âm nhạc và các hoạt động giác quan — xây nền tảng nghe nói đầu đời.</p>
+          <p class="program-hook">"Con thích đến lớp không, hay chỉ học vì phải học?"</p>
+        </div>
+      </div>
+      <div class="program-card reveal">
+        <div class="program-photo"><img src="images/photos/animal-flashcards.jpg" alt="Young Dino - Tiếng Anh Thiếu Nhi tại Beyond English"></div>
+        <div class="program-body">
+          <span class="program-age">7 – 12 tuổi</span><span class="program-role">Nhà sáng tạo</span>
+          <h3>Young Dino</h3>
+          <p class="program-became">Con đã trở thành... một người tự tin thể hiện bản thân.</p>
+          <p>Mở rộng vốn từ và phản xạ giao tiếp qua các dự án nhỏ, khuyến khích con tự đặt câu hỏi và khám phá.</p>
+          <p class="program-hook">"Con học tiếng Anh nhiều năm nhưng vẫn ngại nói?"</p>
+        </div>
+      </div>
+      <div class="program-card reveal">
+        <div class="program-photo"><img src="images/photos/tutor-teens.jpg" alt="Junior Dino - Tiếng Anh Thiếu Niên tại Beyond English"></div>
+        <div class="program-body">
+          <span class="program-age">12 – 15 tuổi</span><span class="program-role">Nhà tư duy</span>
+          <h3>Junior Dino</h3>
+          <p class="program-became">Con đã trở thành... một người học độc lập, biết tư duy.</p>
+          <p>Củng cố ngữ pháp và tư duy phản biện qua các dự án thực tế, chuẩn bị nền tảng vững vàng cho các cấp học tiếp theo.</p>
+          <p class="program-hook">"Con biết từ vựng nhưng chưa biết diễn đạt ý kiến?"</p>
+        </div>
+      </div>
+      <div class="program-card special reveal">
+        <div class="program-photo"><img src="images/photos/reading-masks.jpg" alt="Chương trình đọc sách Cool Kids Read Books tại Beyond English"></div>
+        <div class="program-body">
+          <span class="program-age">Chương trình bổ trợ</span>
+          <h3>"Cool Kids Read Books"</h3>
+          <p>Chương trình đọc sách riêng của Beyond, nuôi dưỡng thói quen và tình yêu đọc sách bằng tiếng Anh lâu dài.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pathway" id="pathway">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Lộ trình học</div>
+      <h2>Con đang ở đâu, và sắp đạt được điều gì</h2>
+      <p>Mỗi chương trình được chia thành nhiều cấp độ nhỏ, để ba mẹ luôn thấy rõ tiến trình của con — không chỉ nghe báo "con học tốt".</p>
+    </div>
+    <div class="pathway-grid">
+      <div class="pathway-card reveal">
+        <h3>Baby Dino</h3>
+        <div class="pathway-levels">8 cấp độ · BD1 – BD8</div>
+        <ul class="pathway-steps">
+          <li>Làm quen — nhận diện từ, nghe hiểu cơ bản</li>
+          <li>Phản xạ — trả lời từ đơn, câu ngắn</li>
+          <li>Phonics nền — nhận diện chữ cái, âm</li>
+          <li>Sẵn sàng đọc — ghép từ, nói câu đơn</li>
+        </ul>
+        <div class="pathway-outcome">Hoàn thành BD8: sẵn sàng ở mức Pre-A1, vào Young Dino</div>
+      </div>
+      <div class="pathway-card yd reveal">
+        <h3>Young Dino</h3>
+        <div class="pathway-levels">9 cấp độ · YD0 – YD8</div>
+        <ul class="pathway-steps">
+          <li>YD0 — lớp nhập môn cho bé chưa có nền tảng tiếng Anh</li>
+          <li>Nền tảng &amp; cơ bản — từ vựng, câu đơn, hỏi đáp</li>
+          <li>Phát triển — kể chuyện, dùng thì quá khứ</li>
+          <li>Chuyển tiếp — nêu ý kiến, thuyết trình ngắn</li>
+        </ul>
+        <div class="pathway-outcome">Hoàn thành YD8: sẵn sàng thi Cambridge Flyers / đầu KET, vào Junior Dino</div>
+      </div>
+      <div class="pathway-card jd reveal">
+        <h3>Junior Dino</h3>
+        <div class="pathway-levels">9 cấp độ · JD1 – JD9</div>
+        <ul class="pathway-steps">
+          <li>Elementary — giao tiếp tình huống quen thuộc</li>
+          <li>Pre-Intermediate — viết đoạn văn, nêu kế hoạch</li>
+          <li>Intermediate+ — tranh luận, thuyết trình học thuật</li>
+        </ul>
+        <div class="pathway-outcome">Hoàn thành JD9: hướng đến trình độ B1+/B2</div>
+      </div>
+    </div>
+    <p class="pathway-note reveal">Toàn bộ lộ trình được xây dựng trên nền giáo trình quốc tế <strong>Oxford Discover</strong> và <strong>Solutions</strong> (Oxford University Press), cùng bài kiểm tra xếp lớp miễn phí trước khi con bắt đầu — để con luôn học đúng trình độ, không quá sức và không bị chậm.</p>
+  </div>
+</section>
+
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Cách Beyond dạy</div>
+      <h2>Học qua khám phá, không học qua ghi nhớ</h2>
+      <p>Đây là những điều Beyond giữ vững trong từng lớp học, dù chương trình có phát triển thêm.</p>
+    </div>
+    <div class="why-list">
+      <div class="why-item reveal">
+        <span class="num">✓</span>
+        <div><h3>Inquiry-based learning</h3><p>Con được khuyến khích tự đặt câu hỏi và tự tìm câu trả lời, thay vì chỉ tiếp nhận kiến thức một chiều.</p></div>
+      </div>
+      <div class="why-item reveal">
+        <span class="num">✓</span>
+        <div><h3>Project-based learning</h3><p>Học qua các dự án và hoạt động thực tế, để tiếng Anh trở thành công cụ chứ không phải môn học phải học thuộc.</p></div>
+      </div>
+      <div class="why-item reveal">
+        <span class="num">✓</span>
+        <div><h3>Một cộng đồng nhỏ, gần gũi</h3><p>Không gian an toàn, thân thiện — nơi con được biết đến, được lắng nghe, giống như một ngôi nhà thứ hai.</p></div>
+      </div>
+      <div class="why-item reveal">
+        <span class="num">✓</span>
+        <div><h3>Hoạt động mới mỗi tuần</h3><p>Ngoại khóa, dự án nhóm và các hoạt động khám phá được cập nhật liên tục, giúp con luôn hào hứng đến lớp.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="activities">
+  <div class="wrap">
+    <div class="activities-head reveal">
+      <div>
+        <h3>🗓️ Một tuần ở Beyond trông như thế nào</h3>
+        <p>Vài khoảnh khắc thật từ các dự án và hoạt động gần đây — cập nhật mới mỗi tuần trên Zalo và Facebook.</p>
+      </div>
+      <a href="https://www.facebook.com/beyondenglish.br" class="btn-ghost">Xem thêm trên Facebook</a>
+    </div>
+    <div class="gallery-strip reveal">
+      <a href="#"><img src="images/photos/besafe-cards.jpg" alt="Hoạt động BeSafe - kỹ năng an toàn"></a>
+      <a href="#"><img src="images/photos/craft-projects.jpg" alt="Dự án thủ công Beyond Time"></a>
+      <a href="#"><img src="images/photos/lantern-craft.jpg" alt="Hoạt động làm lồng đèn"></a>
+      <a href="#"><img src="images/photos/painting-project.jpg" alt="Dự án hội họa BeWild"></a>
+      <a href="#"><img src="images/photos/whiteboard-vocab.jpg" alt="Trò chơi từ vựng trên bảng"></a>
+      <a href="#"><img src="images/photos/sentence-game-floor.jpg" alt="Trò chơi ghép câu"></a>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Cảm nhận</div>
+      <h2>Phụ huynh và học viên nói gì</h2>
+      <p>Một vài chia sẻ minh hoạ. <em>(Beyond thay bằng cảm nhận thật của phụ huynh khi có nhé.)</em></p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <p>Con mình từ chỗ rụt rè, giờ về nhà hay kể lại những gì học được ở Beyond bằng tiếng Anh. Các hoạt động dự án làm con rất thích thú.</p>
+        <div class="testi-who"><div class="avatar">P</div><div><strong>Chị Phương</strong><span>Phụ huynh, lớp Thiếu Nhi</span></div></div>
+      </div>
+      <div class="testi-card reveal">
+        <p>Mình thích cách Beyond để các con tự đặt câu hỏi thay vì chỉ nghe giảng. Không khí lớp học rất gần gũi, như một cộng đồng nhỏ thật sự.</p>
+        <div class="testi-who"><div class="avatar">H</div><div><strong>Chị Hạnh</strong><span>Phụ huynh, lớp Mẫu Giáo</span></div></div>
+      </div>
+      <div class="testi-card reveal">
+        <p>Con thích nhất là "Cool Kids Read Books" — mỗi tuần đều có sách mới để đọc và kể lại cho cả nhà nghe.</p>
+        <div class="testi-who"><div class="avatar">M</div><div><strong>Anh Minh</strong><span>Phụ huynh, lớp Thiếu Niên</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact wrap">
+    <div class="contact-inner contact-grid">
+      <div>
+        <div class="eyebrow" style="color:var(--yellow);">Bắt đầu cùng Beyond</div>
+        <h2>Đăng ký một buổi học thử — để con tự cảm nhận, không chỉ nghe kể</h2>
+        <p class="lede">Chỉ cần vài dòng về độ tuổi và điều ba mẹ mong con trở thành — Beyond sẽ trả lời và sắp xếp buổi học thử phù hợp trong ngày.</p>
+        <div class="contact-actions">
+          <a href="https://zalo.me/4365568810959156939" class="btn-primary" style="background:var(--yellow); box-shadow:0 3px 0 #C99A0A; color:var(--purple-deep);">💬 Đăng ký học thử miễn phí</a>
+          <a href="https://www.facebook.com/beyondenglish.br" class="btn-ghost" style="background:transparent; border-color:rgba(255,255,255,.3); color:#fff;">Facebook Beyond English</a>
+        </div>
+      </div>
+      <div class="info-list">
+        <div class="info-item"><span class="ico">📍</span><span>29 Nguyễn Huệ, Phước Hiệp, TP. Bà Rịa, BR-VT</span></div>
+        <div class="info-item"><span class="ico">☎️</span><span>077 499 3384 · 0908 347 883 · 0254.6282.968</span></div>
+        <div class="info-item"><span class="ico">📧</span><a href="mailto:beyondenglish.br@gmail.com">beyondenglish.br@gmail.com</a></div>
+        <div class="info-item"><span class="ico">💬</span><a href="https://zalo.me/4365568810959156939">Zalo Beyond English</a></div>
+        <div class="info-item"><span class="ico">📘</span><a href="https://www.facebook.com/beyondenglish.br">facebook.com/beyondenglish.br</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <img src="images/logo_transparent.png" alt="Beyond English">
+  Learning English with a creative twist. · © <span id="year"></span> Beyond English Center, TP. Bà Rịa
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const burger = document.querySelector('.burger');
+  const navLinks = document.querySelector('.nav-links');
+  burger.addEventListener('click', () => {
+    const open = navLinks.style.display === 'flex';
+    navLinks.style.display = open ? 'none' : 'flex';
+    navLinks.style.flexDirection = 'column';
+    navLinks.style.position = 'absolute';
+    navLinks.style.top = '64px';
+    navLinks.style.left = '0';
+    navLinks.style.right = '0';
+    navLinks.style.background = '#fff';
+    navLinks.style.padding = '20px 28px';
+    navLinks.style.borderBottom = '1px solid var(--line)';
+    navLinks.style.gap = '18px';
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('show'); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
